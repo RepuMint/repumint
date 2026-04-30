@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Brand palette */
+  --color-navy:       #0B1B3E;
+  --color-navy-deep:  #080f22;
+  --color-mint:       #66FCF1;
+  --color-mint-deep:  #45A29E;
+  --color-lime:       #A8FF3E;
+  --color-lime-deep:  #6BBF1A;
+  --color-off-white:  #F4F6FA;
+  --color-white:      #FFFFFF;
+  --color-alert:      #FF6450;
+  --color-amber:      #F59E0B;
+
+  /* Typography — Manrope throughout */
+  --font-sans: var(--font-manrope), system-ui, -apple-system, sans-serif;
+  /* Brand gradient — mint → lime */
+  --gradient-brand: linear-gradient(135deg, #66FCF1 0%, #A8FF3E 100%);
+  --font-mono: ui-monospace, "SF Mono", "Fira Code", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { color-scheme: light; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F4F6FA;
+  color: #0B1B3E;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(11,27,62,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(11,27,62,0.25); }
+
+/* Primary CTA button — gradient */
+.btn-primary {
+  background: linear-gradient(135deg, #66FCF1 0%, #A8FF3E 100%);
+  color: #080f22;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: opacity 140ms ease, box-shadow 140ms ease, transform 80ms ease;
+}
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.88;
+  box-shadow: 0 4px 28px rgba(102,252,241,0.3);
+}
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.btn-primary:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
 }

@@ -1,65 +1,199 @@
-import Image from "next/image";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
-export default function Home() {
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) {
+    const { data: business } = await supabase
+      .from("businesses")
+      .select("onboarding_completed")
+      .eq("owner_id", user.id)
+      .maybeSingle();
+
+    if (!business || !business.onboarding_completed) redirect("/onboarding");
+    redirect("/dashboard");
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div style={{
+      minHeight: "100vh",
+      position: "relative",
+      fontFamily: "var(--font-sans)",
+      overflow: "hidden",
+    }}>
+      {/* Full-screen background image */}
+      <img
+        src="/repumint-homepage.png"
+        alt=""
+        aria-hidden
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+          zIndex: 0,
+        }}
+      />
+
+      {/* Overlay */}
+      <div style={{
+        position: "fixed",
+        inset: 0,
+        background: "linear-gradient(to bottom, rgba(8,15,34,0.6) 0%, rgba(8,15,34,0.4) 40%, rgba(8,15,34,0.7) 100%)",
+        zIndex: 1,
+      }} />
+
+      {/* Top navigation */}
+      <header style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 10,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 48px",
+        height: "72px",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        backgroundColor: "rgba(8,15,34,0.3)",
+        borderBottom: "1px solid rgba(102,252,241,0.08)",
+      }}>
+        {/* Logo — left */}
+        <img
+          src="/repumint-logo.png"
+          alt="RepuMint"
+          style={{ height: "100px", width: "auto" }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+        {/* Nav links — center */}
+        <nav style={{ display: "flex", alignItems: "center", gap: "36px" }}>
+          {["Product", "Pricing", "About"].map((label) => (
+            <Link key={label} href={`/${label.toLowerCase()}`} className="landing-nav-link">
+              {label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Auth — right */}
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Link href="/login" style={{
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "rgba(255,255,255,0.75)",
+            textDecoration: "none",
+            padding: "8px 16px",
+            borderRadius: "8px",
+            transition: "color 120ms ease",
+          }}>
+            Sign in
+          </Link>
+          <Link href="/signup" className="btn-gradient" style={{
+            fontSize: "14px",
+            fontWeight: 700,
+            color: "#080f22",
+            textDecoration: "none",
+            padding: "9px 20px",
+            borderRadius: "8px",
+          }}>
+            Get started free
+          </Link>
+        </div>
+      </header>
+
+      {/* Hero content */}
+      <main style={{
+        position: "relative",
+        zIndex: 5,
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "120px 24px 80px",
+        textAlign: "center",
+      }}>
+        {/* Big logo — focal point */}
+        <img
+          src="/repumint-logo.png"
+          alt="RepuMint"
+          style={{
+            width: "min(680px, 88vw)",
+            height: "auto",
+            marginBottom: "28px",
+            filter: "drop-shadow(0 4px 48px rgba(102,252,241,0.28))",
+          }}
+        />
+
+        {/* Italic tagline */}
+        <p style={{
+          fontSize: "clamp(19px, 2.4vw, 26px)",
+          fontStyle: "italic",
+          fontWeight: 400,
+          color: "rgba(255,255,255,0.82)",
+          letterSpacing: "0.01em",
+          marginBottom: "48px",
+          lineHeight: 1.4,
+        }}>
+          More reviews. Better reputation. Less work.
+        </p>
+
+        {/* CTA group */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "14px" }}>
+          <Link href="/signup" className="btn-gradient" style={{
+            display: "inline-block",
+            fontSize: "16px",
+            fontWeight: 700,
+            color: "#080f22",
+            textDecoration: "none",
+            padding: "16px 40px",
+            borderRadius: "10px",
+            letterSpacing: "0.01em",
+            boxShadow: "0 0 48px rgba(102,252,241,0.22)",
+          }}>
+            Start your free trial →
+          </Link>
+          <p style={{
+            fontSize: "13px",
+            color: "rgba(255,255,255,0.35)",
+            letterSpacing: "0.02em",
+          }}>
+            7 days free · No credit card required · Up and running in 15 minutes
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
       </main>
+
+      <style>{`
+        .landing-nav-link {
+          font-size: 14px;
+          font-weight: 500;
+          color: rgba(255,255,255,0.7);
+          text-decoration: none;
+          letter-spacing: 0.01em;
+          transition: color 120ms ease;
+        }
+        .landing-nav-link:hover { color: #66FCF1; }
+
+        .btn-gradient {
+          background: linear-gradient(135deg, #66FCF1 0%, #A8FF3E 100%);
+          transition: opacity 120ms ease, box-shadow 120ms ease;
+        }
+        .btn-gradient:hover {
+          opacity: 0.92;
+          box-shadow: 0 0 56px rgba(102,252,241,0.35) !important;
+        }
+
+        @media (max-width: 640px) {
+          header nav { display: none; }
+          header { padding: 0 20px; }
+        }
+      `}</style>
     </div>
   );
 }
