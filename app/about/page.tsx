@@ -74,7 +74,7 @@ export default function AboutPage() {
           }}>
             Built for the businesses<br />
             <span style={{ background: "linear-gradient(135deg, #66FCF1 0%, #A8FF3E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              that build your town
+              that are the backbone of your town
             </span>
           </h1>
           <p style={{
@@ -84,7 +84,7 @@ export default function AboutPage() {
             maxWidth: "580px",
             margin: "0 auto",
           }}>
-            We started RepuMint because the tools that exist are built for enterprise teams with dedicated marketing staff — not for the owner who also answers the phone, takes the orders, and locks up at night.
+            We started RepuMint because the tools that exist are built for large companies with dedicated marketing staff, not for the owner who also answers the phone, takes the orders, and locks up at night.
           </p>
         </div>
       </section>
@@ -93,7 +93,7 @@ export default function AboutPage() {
       <section style={{ padding: "96px 24px", maxWidth: "760px", margin: "0 auto" }}>
         <div style={{ borderLeft: "3px solid #66FCF1", paddingLeft: "28px", marginBottom: "64px" }}>
           <p style={{ fontSize: "clamp(20px, 2.4vw, 26px)", fontWeight: 700, color: "#0B1B3E", lineHeight: 1.5, fontStyle: "italic", marginBottom: "0" }}>
-            "Every local business deserves a fighting chance online. A few missing reviews or one bad public complaint can cost months of hard work. We built RepuMint to fix that — automatically, affordably, and without requiring a marketing degree."
+            "Every local business deserves to put their best foot forward online. A few missing reviews or one bad public complaint can cost months of hard work. I built RepuMint to fix that: automatically, affordably, and without requiring a marketing degree." -Avery Maxwell, Founder
           </p>
         </div>
 
