@@ -81,7 +81,7 @@ function StarRow({ rating, size = 14 }: { rating: number; size?: number }) {
   return (
     <span style={{ display: "inline-flex", gap: "2px", lineHeight: 1 }}>
       {[1, 2, 3, 4, 5].map((n) => (
-        <svg key={n} width={size} height={size} viewBox="0 0 24 24" fill={n <= rating ? "#66FCF1" : "rgba(11,27,62,0.12)"}>
+        <svg key={n} width={size} height={size} viewBox="0 0 24 24" fill={n <= rating ? "#3DFFC0" : "rgba(11,27,62,0.12)"}>
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
         </svg>
       ))}
@@ -181,7 +181,7 @@ function RespondForm({ review, onClose }: { review: Review; onClose: () => void 
           fontSize: "14px", lineHeight: "1.6", color: "#0B1B3E",
           border: "1px solid rgba(11,27,62,0.15)",
           backgroundColor: "#FAFBFD", resize: "none", outline: "none",
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-geist-sans)",
         }}
         onFocus={(e) => { e.currentTarget.style.border = "1px solid rgba(168,255,62,0.5)"; e.currentTarget.style.boxShadow = "0 0 0 3px rgba(168,255,62,0.1)"; }}
         onBlur={(e) => { e.currentTarget.style.border = "1px solid rgba(11,27,62,0.15)"; e.currentTarget.style.boxShadow = "none"; }}
@@ -292,7 +292,7 @@ function ReviewCard({ review }: { review: Review }) {
               <button
                 onClick={() => setExpanded(!expanded)}
                 style={{
-                  fontSize: "12px", fontWeight: 600, color: "#45A29E",
+                  fontSize: "12px", fontWeight: 600, color: "#0aab7c",
                   background: "none", border: "none", cursor: "pointer",
                   padding: "4px 0", marginTop: "2px",
                 }}
@@ -308,13 +308,13 @@ function ReviewCard({ review }: { review: Review }) {
           <div style={{
             marginTop: "14px",
             padding: "12px 14px",
-            backgroundColor: "rgba(102,252,241,0.05)",
+            backgroundColor: "rgba(61,255,192,0.05)",
             borderRadius: "8px",
-            borderLeft: "3px solid #66FCF1",
+            borderLeft: "3px solid #3DFFC0",
           }}>
             <p style={{
               fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "#45A29E", marginBottom: "5px",
+              textTransform: "uppercase", color: "#0aab7c", marginBottom: "5px",
             }}>
               Your response
             </p>
@@ -341,7 +341,7 @@ function ReviewCard({ review }: { review: Review }) {
           }}
         >
           {review.responded_at ? (
-            <span style={{ fontSize: "12px", color: "#45A29E", display: "flex", alignItems: "center", gap: "5px" }}>
+            <span style={{ fontSize: "12px", color: "#0aab7c", display: "flex", alignItems: "center", gap: "5px" }}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
@@ -364,15 +364,15 @@ function ReviewCard({ review }: { review: Review }) {
             onClick={() => setResponding(true)}
             style={{
               fontSize: "12px", fontWeight: 600,
-              color: "#45A29E",
+              color: "#0aab7c",
               backgroundColor: "transparent",
               border: "1px solid rgba(10,171,124,0.3)",
               padding: "5px 12px", borderRadius: "7px", cursor: "pointer",
               transition: "all 120ms ease",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(102,252,241,0.08)";
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(102,252,241,0.5)";
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(61,255,192,0.08)";
+              (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(61,255,192,0.5)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
@@ -415,8 +415,8 @@ function StatCard({
       </p>
       <p style={{
         fontSize: "36px", fontWeight: 800, letterSpacing: "-1.5px",
-        color: accent ?? "#66FCF1",
-        fontFamily: "var(--font-mono)",
+        color: accent ?? "#3DFFC0",
+        fontFamily: "var(--font-geist-mono)",
         lineHeight: 1,
       }}>
         {value}
@@ -453,7 +453,7 @@ function PlatformTab({
         padding: "7px 14px", borderRadius: "8px",
         fontSize: "13px", fontWeight: active ? 600 : 400, cursor: "pointer",
         backgroundColor: active ? "#0B1B3E" : "transparent",
-        color: active ? "#66FCF1" : "#6B7A99",
+        color: active ? "#3DFFC0" : "#6B7A99",
         border: active ? "1px solid transparent" : "1px solid rgba(11,27,62,0.1)",
         transition: "all 120ms ease",
       }}
@@ -462,8 +462,8 @@ function PlatformTab({
       {platform === "all" ? "All" : meta!.label}
       <span style={{
         fontSize: "11px",
-        fontFamily: "var(--font-mono)",
-        color: active ? "rgba(102,252,241,0.7)" : "#8892A4",
+        fontFamily: "var(--font-geist-mono)",
+        color: active ? "rgba(61,255,192,0.7)" : "#8892A4",
         backgroundColor: active ? "rgba(255,255,255,0.08)" : "rgba(11,27,62,0.05)",
         padding: "1px 6px", borderRadius: "20px",
       }}>
@@ -491,7 +491,7 @@ const WORKFLOW_STEPS = [
   },
   {
     n: 3,
-    color: "#66FCF1",
+    color: "#3DFFC0",
     title: "Happy customers go public",
     body: "One tap sends them to Google, Yelp, or Facebook to leave a real review.",
   },
@@ -503,9 +503,9 @@ const WORKFLOW_STEPS = [
   },
   {
     n: 5,
-    color: "#66FCF1",
+    color: "#3DFFC0",
     title: "Reviews appear right here",
-    body: "RepuMint pulls them in from every connected platform so you can respond in one place.",
+    body: "See new Google reviews as they come in, keep an eye on other platforms, and respond quickly from one simple dashboard.",
   },
 ];
 
@@ -533,7 +533,7 @@ function EmptyState({ hasConnected }: { hasConnected: boolean }) {
           Every visit is a chance for a 5-star review.
         </h2>
         <p style={{ fontSize: "15px", color: "#4A5568", lineHeight: "1.65", maxWidth: "520px" }}>
-          RepuMint turns your customer interactions into public reviews — while quietly
+          RepuMint turns your customer interactions into public reviews, while quietly
           catching unhappy customers before they reach Google or Yelp.
         </p>
       </div>
@@ -724,7 +724,7 @@ export function ReviewsClient({
             label="Needs reply"
             value={stats.totalUnresponded}
             sub={stats.totalUnresponded === 0 ? "All caught up" : "awaiting response"}
-            accent={stats.totalUnresponded > 0 ? "#FF6450" : "#66FCF1"}
+            accent={stats.totalUnresponded > 0 ? "#FF6450" : "#3DFFC0"}
           />
         </div>
       )}
